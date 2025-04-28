@@ -1,11 +1,19 @@
 import React from "react";
 import { Text, StyleSheet, View, Image, TouchableOpacity } from "react-native";
 
-const PlayerDetails = ({ name, imageSource, age, color, navigation }) => {
-  const dynamicBorderColor = { borderColor: color };
+const PlayerDetails = ({
+  name,
+  imageSource,
+  age,
+  red,
+  green,
+  blue,
+  navigation,
+}) => {
+  const dynamicBorderColor = { borderColor: `rgb(${red}, ${green}, ${blue})` };
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("ColorPicker", { color })}
+      onPress={() => navigation.navigate("ColorPicker", { red, green, blue })}
       style={{ marginVertical: 8 }}
     >
       <View style={[styles.container, dynamicBorderColor]}>

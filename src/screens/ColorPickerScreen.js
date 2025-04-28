@@ -3,16 +3,22 @@ import { Text, StyleSheet, View } from "react-native";
 import RgbControl from "../components/rgbControl";
 
 const ColorPickerScreen = ({ navigation }) => {
-  const color = navigation.getParam("color");
+  const red = navigation.getParam("red");
+  const green = navigation.getParam("green");
+  const blue = navigation.getParam("blue");
+
   return (
     <View style={styles.container}>
       <View style={styles.rgbControlsContainer}>
-        <RgbControl />
-        <RgbControl />
-        <RgbControl />
+        <RgbControl red={red} blue={blue} green={green} />
       </View>
       <View style={styles.colorBoxContainer}>
-        <View style={[styles.colorBox, { backgroundColor: color }]}></View>
+        <View
+          style={[
+            styles.colorBox,
+            { backgroundColor: `rgb(${red}, ${green}, ${blue})` },
+          ]}
+        ></View>
       </View>
     </View>
   );

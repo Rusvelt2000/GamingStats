@@ -8,19 +8,25 @@ const PlayersScreen = ({ navigation }) => {
       name: "Roberto",
       age: 42,
       avatar: require("../../assets/players/Rob.png"),
-      color: "rgb(158, 177, 155)",
+      red: 158,
+      green: 177,
+      blue: 155,
     },
     {
       name: "Rossella",
       age: 39,
       avatar: require("../../assets/players/Ross.png"),
-      color: "rgb(181, 87, 96)",
+      red: 181,
+      green: 87,
+      blue: 96,
     },
     {
       name: "Lilla",
       age: 4,
       avatar: require("../../assets/players/Lilla.png"),
-      color: "rgb(163, 51, 148)",
+      red: 163,
+      green: 51,
+      blue: 148,
     },
   ]);
 
@@ -36,7 +42,9 @@ const PlayersScreen = ({ navigation }) => {
               name={item.name}
               imageSource={item.avatar}
               age={item.age}
-              color={item.color}
+              red={item.red}
+              green={item.green}
+              blue={item.blue}
               navigation={navigation}
             />
           );
