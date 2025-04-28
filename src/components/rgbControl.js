@@ -40,7 +40,7 @@ const RgbControl = ({ red, green, blue }) => {
         onValueChange={handleValueChangeRed}
         onSlidingComplete={handleSlidingCompleteRed}
         minimumTrackTintColor="#F86B63"
-        maximumTrackTintColor="#F96B63"
+        maximumTrackTintColor="#d3d3d3"
         thumbTintColor="#F96B63"
       />
       <Text>Green: {Math.round(greenColor)}</Text>
@@ -62,7 +62,7 @@ const RgbControl = ({ red, green, blue }) => {
         onValueChange={handleValueChangeBlue}
         onSlidingComplete={handleSlidingCompleteBlue}
         minimumTrackTintColor="#98B5CF"
-        maximumTrackTintColor="#7EA2CD"
+        maximumTrackTintColor="#d3d3d3"
         thumbTintColor="#7EA2CD"
       />
     </View>
