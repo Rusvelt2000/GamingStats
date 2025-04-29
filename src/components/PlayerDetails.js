@@ -2,6 +2,7 @@ import React from "react";
 import { Text, StyleSheet, View, Image, TouchableOpacity } from "react-native";
 
 const PlayerDetails = ({
+  playerIndex,
   name,
   imageSource,
   age,
@@ -9,11 +10,22 @@ const PlayerDetails = ({
   green,
   blue,
   navigation,
+  updatePlayerColor,
 }) => {
   const dynamicBorderColor = { borderColor: `rgb(${red}, ${green}, ${blue})` };
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("ColorPicker", { red, green, blue })}
+      onPress={() =>
+        navigation.navigate("ColorPicker", {
+          red,
+          green,
+          blue,
+          playerIndex,
+          updatePlayerColor: (newColor) => {
+            updatePlayerColor(playerIndex, newColor);
+          },
+        })
+      }
       style={{ marginVertical: 8 }}
     >
       <View style={[styles.container, dynamicBorderColor]}>

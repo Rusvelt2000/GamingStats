@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { Text, StyleSheet, View } from "react-native";
 import RgbControl from "../components/rgbControl";
 
@@ -6,11 +6,46 @@ const ColorPickerScreen = ({ navigation }) => {
   const red = navigation.getParam("red");
   const green = navigation.getParam("green");
   const blue = navigation.getParam("blue");
+  const playerIndex = navigation.getParam("playerIndex");
+  const updatePlayerColor = navigation.getParam("updatePlayerColor");
+
+  const [redColor, setValueRed] = useState(red);
+  const [greenColor, setValueGreen] = useState(green);
+  const [blueColor, setValueBlue] = useState(blue);
+
+  const onRedChange = (newValue) => {
+    console.log("onRedChange", newValue);
+    setValueRed(newValue);
+    updatePlayerColor(playerIndex, {
+      red: redColor,
+    });
+  };
+  const onGreenChange = (newValue) => {
+    console.log("onGreenChange", newValue);
+    setValueGreen(newValue);
+    updatePlayerColor(playerIndex, {
+      green: greenColor,
+    });
+  };
+  const onBlueChange = (newValue) => {
+    console.log("onBlueChange", newValue);
+    setValueBlue(newValue);
+    updatePlayerColor(playerIndex, {
+      blue: blueColor,
+    });
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.rgbControlsContainer}>
-        <RgbControl red={red} blue={blue} green={green} />
+        <RgbControl
+          onRedValueChange={onRedChange}
+          onGreenValueChange={onGreenChange}
+          onBlueValueChange={onBlueChange}
+          red={redColor}
+          blue={blueColor}
+          green={greenColor}
+        />
       </View>
       <View style={styles.colorBoxContainer}>
         <View

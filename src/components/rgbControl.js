@@ -2,7 +2,14 @@ import React, { useState, useRef } from "react";
 import { Text, StyleSheet, View } from "react-native";
 import Slider from "@react-native-community/slider";
 
-const RgbControl = ({ red, green, blue }) => {
+const RgbControl = ({
+  onRedValueChange,
+  red,
+  onGreenChange,
+  green,
+  onBlueChange,
+  blue,
+}) => {
   const [redColor, setValueRed] = useState(red);
   const [greenColor, setValueGreen] = useState(green);
   const [blueColor, setValueBlue] = useState(blue);
@@ -12,12 +19,15 @@ const RgbControl = ({ red, green, blue }) => {
 
   const handleSlidingCompleteRed = (newValue) => {
     setValueRed(newValue);
+    onRedValueChange(newValue);
   };
   const handleSlidingCompleteGreen = (newValue) => {
     setValueGreen(newValue);
+    onGreenValueChange(newValue);
   };
   const handleSlidingCompleteBlue = (newValue) => {
     setValueBlue(newValue);
+    onBlueValueChange(newValue);
   };
 
   const handleValueChangeRed = (newValue) => {
@@ -40,7 +50,7 @@ const RgbControl = ({ red, green, blue }) => {
         onValueChange={handleValueChangeRed}
         onSlidingComplete={handleSlidingCompleteRed}
         minimumTrackTintColor="#F86B63"
-        maximumTrackTintColor="#d3d3d3"
+        maximumTrackTintColor="#F96B63"
         thumbTintColor="#F96B63"
       />
       <Text>Green: {Math.round(greenColor)}</Text>
@@ -62,7 +72,7 @@ const RgbControl = ({ red, green, blue }) => {
         onValueChange={handleValueChangeBlue}
         onSlidingComplete={handleSlidingCompleteBlue}
         minimumTrackTintColor="#98B5CF"
-        maximumTrackTintColor="#d3d3d3"
+        maximumTrackTintColor="#7EA2CD"
         thumbTintColor="#7EA2CD"
       />
     </View>
