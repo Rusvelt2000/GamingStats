@@ -1,8 +1,23 @@
 import React from "react";
 import { Text, StyleSheet, View, Image } from "react-native";
+import { usePlayers } from "../Context/PlayersContext";
 
-const ImageDetails = ({ title, imageSource, caption, robScore, rosScore }) => {
+const GamesListScreen = ({
+  title,
+  imageSource,
+  caption,
+  robScore,
+  rosScore,
+}) => {
   const winner = getWinner(robScore, rosScore);
+  const { players } = usePlayers();
+  const getBorderColor = (index) => {
+    const player = players[index];
+    return {
+      borderColor: `rgb(${player.red}, ${player.green}, ${player.blue})`,
+    };
+  };
+
   return (
     <View style={{ marginVertical: 8 }}>
       <View style={styles.container}>
@@ -15,7 +30,11 @@ const ImageDetails = ({ title, imageSource, caption, robScore, rosScore }) => {
           <View style={styles.playersContainer}>
             <View style={styles.playerWrapper}>
               <Image
-                style={[styles.avatar, winner === "Rob" && styles.avatarWinner]}
+                style={[
+                  styles.avatar,
+                  getBorderColor(0),
+                  winner === "Rob" && styles.avatarWinner,
+                ]}
                 source={require("../../assets/players/Rob.png")}
               />
               <Text style={[styles.player, winner === "Rob" && styles.winner]}>
@@ -26,6 +45,7 @@ const ImageDetails = ({ title, imageSource, caption, robScore, rosScore }) => {
               <Image
                 style={[
                   styles.avatar,
+                  getBorderColor(1),
                   winner === "Ross" && styles.avatarWinner,
                 ]}
                 source={require("../../assets/players/Ross.png")}
@@ -101,13 +121,14 @@ const styles = StyleSheet.create({
   avatar: {
     width: 32,
     height: 32,
-    borderRadius: 16,
+    borderRadius: 20,
     marginRight: 4,
     filter: "saturate(0)",
+    borderWidth: 2,
   },
   avatarWinner: {
     filter: "saturate(1)",
   },
 });
 
-export default ImageDetails;
+export default GamesListScreen;

@@ -16,7 +16,7 @@ const HomeScreen = () => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttonPrimary}
-        onPress={() => navigation.navigate("ImageScreen")}
+        onPress={() => navigation.navigate("GamesListScreen")}
       >
         <Text style={styles.buttonText}>Games</Text>
       </TouchableOpacity>
