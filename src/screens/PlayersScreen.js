@@ -1,48 +1,30 @@
-import React, { useState } from "react";
+import { usePlayers } from "../Context/PlayersContext";
 import { StyleSheet, View, FlatList } from "react-native";
+
 import PlayerDetails from "../components/PlayerDetails";
 
-const PlayersScreen = ({ navigation }) => {
-  const [players, setPlayers] = useState([
-    {
-      playerIndex: 0,
-      name: "Roberto",
-      age: 42,
-      avatar: require("../../assets/players/Rob.png"),
-      red: 158,
-      green: 177,
-      blue: 155,
-    },
-    {
-      playerIndex: 1,
-      name: "Rossella",
-      age: 39,
-      avatar: require("../../assets/players/Ross.png"),
-      red: 181,
-      green: 87,
-      blue: 96,
-    },
-    {
-      playerIndex: 2,
-      name: "Lilla",
-      age: 4,
-      avatar: require("../../assets/players/Lilla.png"),
-      red: 163,
-      green: 51,
-      blue: 148,
-    },
-  ]);
+const PlayersScreen = () => {
+  const { players } = usePlayers();
 
-  const updatePlayerColor = (index, newColor) => {
-    setPlayers((prevPlayers) => {
-      const updatedPlayers = [...prevPlayers];
-      updatedPlayers[index] = {
-        ...updatedPlayers[index],
-        ...newColor,
-      };
-      return updatedPlayers;
-    });
-  };
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     if (updatedColor) {
+  //       const { playerIndex, red, green, blue } = updatedColor;
+
+  //       setPlayers((prevPlayers) => {
+  //         const updatedPlayers = [...prevPlayers];
+  //         updatedPlayers[playerIndex] = {
+  //           ...updatedPlayers[playerIndex],
+  //           red,
+  //           green,
+  //           blue,
+  //         };
+  //         return updatedPlayers;
+  //       });
+  //       navigation.setParams({ updatedColor: null });
+  //     }
+  //   }, [updatedColor])
+  // );
 
   return (
     <View style={{ padding: 24 }}>
@@ -53,6 +35,7 @@ const PlayersScreen = ({ navigation }) => {
         renderItem={({ item }) => {
           return (
             <PlayerDetails
+              key={item.playerIndex}
               playerIndex={item.playerIndex}
               name={item.name}
               imageSource={item.avatar}
@@ -60,8 +43,6 @@ const PlayersScreen = ({ navigation }) => {
               red={item.red}
               green={item.green}
               blue={item.blue}
-              navigation={navigation}
-              updatePlayerColor={updatePlayerColor}
             />
           );
         }}

@@ -1,35 +1,24 @@
-import { createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { PlayersProvider } from "./src/Context/PlayersContext";
 import HomeScreen from "./src/screens/HomeScreen";
 import PlayersScreen from "./src/screens/PlayersScreen";
 import ImageScreen from "./src/screens/ImageScreen";
 import ColorPickerScreen from "./src/screens/ColorPickerScreen";
 
-const navigator = createStackNavigator(
-  {
-    Home: HomeScreen,
-    Players: PlayersScreen,
-    ImageScreen: ImageScreen,
-    ColorPicker: ColorPickerScreen,
-  },
-  {
-    initialRouteName: "Home",
-    defaultNavigationOptions: {
-      title: "Our Game Nights",
-    },
-  },
-  (HomeScreen.navigationOptions = {
-    title: "Our Game Nights",
-  }),
-  (PlayersScreen.navigationOptions = {
-    title: "Players List",
-  }),
-  (ImageScreen.navigationOptions = {
-    title: "Games List",
-  }),
-  (ColorPickerScreen.navigationOptions = {
-    title: "Player Settings",
-  })
-);
+const Stack = createNativeStackNavigator();
 
-export default createAppContainer(navigator);
+export default function App() {
+  return (
+    <PlayersProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Game Nights" component={HomeScreen} />
+          <Stack.Screen name="Players" component={PlayersScreen} />
+          <Stack.Screen name="ImageScreen" component={ImageScreen} />
+          <Stack.Screen name="ColorPicker" component={ColorPickerScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </PlayersProvider>
+  );
+}

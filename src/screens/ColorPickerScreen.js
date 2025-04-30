@@ -1,38 +1,39 @@
-import React, { useState, useRef } from "react";
-import { Text, StyleSheet, View } from "react-native";
+import React from "react";
+import { useColor } from "../Hooks/useColor";
+import { usePlayers } from "../Context/PlayersContext";
+import { useRoute, useNavigation } from "@react-navigation/native";
+import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import RgbControl from "../components/rgbControl";
 
-const ColorPickerScreen = ({ navigation }) => {
-  const red = navigation.getParam("red");
-  const green = navigation.getParam("green");
-  const blue = navigation.getParam("blue");
-  const playerIndex = navigation.getParam("playerIndex");
-  const updatePlayerColor = navigation.getParam("updatePlayerColor");
+const ColorPickerScreen = () => {
+  const { updatePlayerColor } = usePlayers();
+  const route = useRoute();
+  const navigation = useNavigation();
+  const { red, green, blue, playerIndex } = route.params;
 
-  const [redColor, setValueRed] = useState(red);
-  const [greenColor, setValueGreen] = useState(green);
-  const [blueColor, setValueBlue] = useState(blue);
+  const {
+    red: redColor,
+    green: greenColor,
+    blue: blueColor,
+    setRed,
+    setGreen,
+    setBlue,
+    rgbString,
+  } = useColor(red, green, blue);
 
-  const onRedChange = (newValue) => {
-    console.log("onRedChange", newValue);
-    setValueRed(newValue);
+  const onRedChange = (newValue) => setRed(newValue);
+
+  const onGreenChange = (newValue) => setGreen(newValue);
+
+  const onBlueChange = (newValue) => setBlue(newValue);
+
+  const handleSaveAndExit = () => {
     updatePlayerColor(playerIndex, {
       red: redColor,
-    });
-  };
-  const onGreenChange = (newValue) => {
-    console.log("onGreenChange", newValue);
-    setValueGreen(newValue);
-    updatePlayerColor(playerIndex, {
       green: greenColor,
-    });
-  };
-  const onBlueChange = (newValue) => {
-    console.log("onBlueChange", newValue);
-    setValueBlue(newValue);
-    updatePlayerColor(playerIndex, {
       blue: blueColor,
     });
+    navigation.goBack();
   };
 
   return (
@@ -51,10 +52,18 @@ const ColorPickerScreen = ({ navigation }) => {
         <View
           style={[
             styles.colorBox,
-            { backgroundColor: `rgb(${red}, ${green}, ${blue})` },
+            {
+              backgroundColor: rgbString,
+            },
           ]}
         ></View>
       </View>
+      <TouchableOpacity
+        style={styles.buttonPrimary}
+        onPress={handleSaveAndExit}
+      >
+        <Text style={styles.buttonText}>Save and Exit</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -82,6 +91,19 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 8,
     boxShadow: "0 4px 8px rgba(55, 22, 8, 0.1)",
+  },
+  buttonPrimary: {
+    backgroundColor: "#DC1F5F",
+    padding: 16,
+    marginTop: 20,
+    borderRadius: 4,
+  },
+  buttonText: {
+    color: "#ffffff",
+    fontSize: 20,
+    fontFamily: "poppins",
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
 

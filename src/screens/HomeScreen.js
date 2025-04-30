@@ -1,7 +1,10 @@
 import React from "react";
 import { Text, StyleSheet, View, Button, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={{ padding: 24 }}>
       <Text style={styles.text}>Hi Roberto</Text>

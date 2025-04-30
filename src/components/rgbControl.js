@@ -5,29 +5,23 @@ import Slider from "@react-native-community/slider";
 const RgbControl = ({
   onRedValueChange,
   red,
-  onGreenChange,
+  onGreenValueChange,
   green,
-  onBlueChange,
+  onBlueValueChange,
   blue,
 }) => {
-  const [redColor, setValueRed] = useState(red);
-  const [greenColor, setValueGreen] = useState(green);
-  const [blueColor, setValueBlue] = useState(blue);
-  const sliderValueRed = useRef(redColor);
-  const sliderValueGreen = useRef(greenColor);
-  const sliderValueBlue = useRef(blueColor);
+  const sliderValueRed = useRef(red);
+  const sliderValueGreen = useRef(green);
+  const sliderValueBlue = useRef(blue);
 
   const handleSlidingCompleteRed = (newValue) => {
-    setValueRed(newValue);
-    onRedValueChange(newValue);
+    onRedValueChange(Math.round(newValue));
   };
   const handleSlidingCompleteGreen = (newValue) => {
-    setValueGreen(newValue);
-    onGreenValueChange(newValue);
+    onGreenValueChange(Math.round(newValue));
   };
   const handleSlidingCompleteBlue = (newValue) => {
-    setValueBlue(newValue);
-    onBlueValueChange(newValue);
+    onBlueValueChange(Math.round(newValue));
   };
 
   const handleValueChangeRed = (newValue) => {
@@ -42,33 +36,33 @@ const RgbControl = ({
 
   return (
     <View style={styles.container}>
-      <Text>Red: {Math.round(redColor)}</Text>
+      <Text>Red: {Math.round(red)}</Text>
       <Slider
         minimumValue={0}
         maximumValue={255}
-        value={redColor}
+        value={red}
         onValueChange={handleValueChangeRed}
         onSlidingComplete={handleSlidingCompleteRed}
         minimumTrackTintColor="#F86B63"
         maximumTrackTintColor="#F96B63"
         thumbTintColor="#F96B63"
       />
-      <Text>Green: {Math.round(greenColor)}</Text>
+      <Text>Green: {Math.round(green)}</Text>
       <Slider
         minimumValue={0}
         maximumValue={255}
-        value={greenColor}
+        value={green}
         onValueChange={handleValueChangeGreen}
         onSlidingComplete={handleSlidingCompleteGreen}
         minimumTrackTintColor="#1fb28a"
         maximumTrackTintColor="#d3d3d3"
         thumbTintColor="#b9e4c9"
       />
-      <Text>Blue: {Math.round(blueColor)}</Text>
+      <Text>Blue: {Math.round(blue)}</Text>
       <Slider
         minimumValue={0}
         maximumValue={255}
-        value={blueColor}
+        value={blue}
         onValueChange={handleValueChangeBlue}
         onSlidingComplete={handleSlidingCompleteBlue}
         minimumTrackTintColor="#98B5CF"

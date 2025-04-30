@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, StyleSheet, View, Image, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const PlayerDetails = ({
   playerIndex,
@@ -9,10 +10,17 @@ const PlayerDetails = ({
   red,
   green,
   blue,
-  navigation,
-  updatePlayerColor,
 }) => {
-  const dynamicBorderColor = { borderColor: `rgb(${red}, ${green}, ${blue})` };
+  const navigation = useNavigation();
+  const dynamicBorderColor = {
+    borderColor: `rgb(${red}, ${green}, ${blue})`,
+  };
+  const dynamicShadow = {
+    boxShadow: `0 4px 16px -8px rgba(${red - 40} , ${green - 40}, ${
+      blue - 40
+    }, .4)`,
+  };
+
   return (
     <TouchableOpacity
       onPress={() =>
@@ -21,14 +29,11 @@ const PlayerDetails = ({
           green,
           blue,
           playerIndex,
-          updatePlayerColor: (newColor) => {
-            updatePlayerColor(playerIndex, newColor);
-          },
         })
       }
       style={{ marginVertical: 8 }}
     >
-      <View style={[styles.container, dynamicBorderColor]}>
+      <View style={[styles.container, dynamicBorderColor, dynamicShadow]}>
         <Image
           style={[styles.image, dynamicBorderColor]}
           source={imageSource}
@@ -52,8 +57,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     borderRadius: 8,
-    boxShadow: "0 4px 8px rgba(55, 22, 8, 0.1)",
-    borderWidth: 1,
+    borderWidth: 2,
   },
   image: {
     width: 80,
@@ -61,7 +65,7 @@ const styles = StyleSheet.create({
     marginVertical: 16,
     marginHorizontal: 8,
     borderRadius: 40,
-    borderWidth: 5,
+    borderWidth: 2,
   },
   name: {
     fontSize: 18,
